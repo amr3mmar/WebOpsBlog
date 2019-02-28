@@ -19,8 +19,8 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      console.log(nextProps.user);
-
+      localStorage.setItem("currentUser", JSON.stringify(nextProps.user))
+      this.props.history.push('/home')
     }
   }
 

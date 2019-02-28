@@ -5,12 +5,13 @@ export const login = user => dispatch => {
     var users = JSON.parse(localStorage.getItem("users"))
     var userToSend
     var found = false
-    users.forEach(u => {
-        if (u.email === user.email && u.password ===     user.password){
-            found = true
-            userToSend = u
-        }      
-    });
+    if(users)
+        users.forEach(u => {
+            if (u.email === user.email && u.password ===     user.password){
+                found = true
+                userToSend = u
+            }      
+        });
     if(found)
         dispatch({
             type: LOGIN,

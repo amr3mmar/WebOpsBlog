@@ -10,7 +10,8 @@ class PostForm extends Component {
       title: '',
       body: ''
     };
-
+    if(!localStorage.getItem('currentUser'))
+      props.history.push('/')
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -24,10 +25,26 @@ class PostForm extends Component {
 
     const post = {
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      user: localStorage.getItem("currentUser")
     };
 
     this.props.createPost(post);
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    console.log('hi');
+    
+    if (nextProps.newPost) {
+      var posts = []
+      if(localStorage.getItem("posts"))
+          posts = JSON.parse(localStorage.getItem("posts"))
+      
+      posts.unshift(nextProps.newPost)
+      localStorage.setItem("posts", JSON.stringify(posts))
+      this.props.history.push('/home')
+    }
   }
 
   render() {
@@ -64,7 +81,13 @@ class PostForm extends Component {
 }
 
 PostForm.propTypes = {
-  createPost: PropTypes.func.isRequired
+  createPost: PropTypes.func.isRequired,
+  newPost: PropTypes.object
 };
 
-export default connect(null, { createPost })(PostForm);
+const mapStateToProps = state => ({
+  posts: state.posts.items,
+  newPost: state.posts.item
+});
+
+export default connect(mapStateToProps, { createPost })(PostForm);
