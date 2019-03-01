@@ -14,6 +14,7 @@ class PostForm extends Component {
       props.history.push('/')
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   onChange(e) {
@@ -26,16 +27,18 @@ class PostForm extends Component {
     const post = {
       title: this.state.title,
       body: this.state.body,
-      user: localStorage.getItem("currentUser")
+      user: localStorage.getItem("currentUser"),
+      comments: []
     };
 
     this.props.createPost(post);
   }
 
+  logout(){
+    localStorage.removeItem("currentUser")
+  }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('hi');
-    
+  componentWillReceiveProps(nextProps) {    
     if (nextProps.newPost) {
       var posts = []
       if(localStorage.getItem("posts"))
@@ -48,8 +51,17 @@ class PostForm extends Component {
   }
 
   render() {
+    var logoutButton
+    var currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    if(currentUser){
+      logoutButton =
+      <div style = {{float: 'right'}}>
+        <a onClick = {this.logout} href="/">Logout</a>
+      </div>
+    }
     return (
       <div>
+        {logoutButton}
         <h1>Add Post</h1>
         <form onSubmit={this.onSubmit}>
           <div>

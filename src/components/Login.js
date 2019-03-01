@@ -9,6 +9,9 @@ class Login extends Component {
     super(props);
     this.state = {};
 
+    if(localStorage.getItem('currentUser'))
+      props.history.push('/home')
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -58,7 +61,7 @@ class Login extends Component {
             />
           </div>
           <br></br>
-          <span style={{fontSize: '14px'}}>Not registered yet?
+          <span style={{fontSize: '14px'}}>Not registered yet? &nbsp;
            <Link to='/register' style={{cursor: 'pointer', color:'blue'}}>Register</Link> now</span>
           <br></br>
           <br></br>

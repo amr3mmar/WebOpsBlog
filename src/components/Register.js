@@ -8,6 +8,9 @@ class Register extends Component {
     super(props);
     this.state = {};
 
+    if(localStorage.getItem('currentUser'))
+      props.history.push('/home')
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
