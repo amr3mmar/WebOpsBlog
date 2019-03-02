@@ -17,6 +17,7 @@ class Home extends Component {
     this.logout = this.logout.bind(this);
     this.addComment = this.addComment.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.editPost = this.editPost.bind(this);
   }
 
   componentWillMount() {
@@ -32,7 +33,13 @@ class Home extends Component {
   }
 
   deletePost(index){
-    this.props.deletePost(index)
+    if (window.confirm('Are you sure you want to delete this post?')) 
+      this.props.deletePost(index)
+  }
+
+  editPost(index){
+    localStorage.setItem("postToEdit", index)
+    this.props.history.push('/edit-post')
   }
 
   addComment(index){
@@ -63,7 +70,7 @@ class Home extends Component {
             <h3 style={{margin: '2px'}}>{JSON.parse(post.user).name}: {post.title}</h3>
             <p style={{margin: '2px'}}>{post.body}</p>
             <div style={{display: 'inline-flex', float: 'right'}}>
-              <button className='button' 
+              <button className='button' onClick={()=>this.editPost(index)}
               style = {{display: (JSON.parse(localStorage.getItem("currentUser")).email === JSON.parse(post.user).email)? 'block': 'none', padding: '8px', backgroundColor: 'blue', marginRight: '5px'}}>Edit</button>
               <button className='button' onClick={()=>this.deletePost(index)} 
               style = {{display: (JSON.parse(localStorage.getItem("currentUser")).email === JSON.parse(post.user).email)? 'block': 'none', padding: '8px', backgroundColor: 'red'}}>Delete</button>

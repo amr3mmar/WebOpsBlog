@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST } from './types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST, EDIT_POST } from './types';
 
 export const fetchPosts = () => dispatch => {
   var posts = JSON.parse(localStorage.getItem("posts"))
@@ -15,6 +15,20 @@ export const createPost = postData => dispatch => {
       type: NEW_POST,
       payload: postData
     })
+};
+
+export const editPost = post => dispatch => {
+  var user = localStorage.getItem("currentUser")
+  if(user){
+    var index = localStorage.getItem('postToEdit')
+    var posts = JSON.parse(localStorage.getItem('posts'))
+    posts.splice(index, 1, post)
+    localStorage.setItem("posts", JSON.stringify(posts))
+    dispatch({
+      type: EDIT_POST,
+      payload: posts
+    })
+  }
 };
 
 export const deletePost = index => dispatch => {

@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
 import Postform from './components/Postform'
+import EditPost from './components/EditPost'
 
 import store from './store';
 
@@ -20,6 +21,7 @@ class App extends Component {
             <Route path='/register' component={Register}></Route>
             <Route path='/home' component={Home}></Route>
             <Route path='/add-post' component={Postform}></Route>
+            <Route path='/edit-post' component={EditPost}></Route>
           </div>
         </BrowserRouter>
       </Provider>
