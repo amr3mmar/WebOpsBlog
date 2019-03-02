@@ -55,8 +55,9 @@ class PostForm extends Component {
     var currentUser = JSON.parse(localStorage.getItem("currentUser"))
     if(currentUser){
       logoutButton =
-      <div style = {{float: 'right'}}>
-        <a onClick = {this.logout} href="/">Logout</a>
+      <div>
+        <a className='button' style={{backgroundColor: 'red', float:"right", marginLeft:'10px', fontSize:'14px', textDecoration: 'none'}}
+         onClick = {this.logout} href="/">Logout</a>
       </div>
     }
     return (
@@ -72,6 +73,7 @@ class PostForm extends Component {
               name="title"
               onChange={this.onChange}
               value={this.state.title}
+              required
             />
           </div>
           <br />
@@ -82,10 +84,11 @@ class PostForm extends Component {
               name="body"
               onChange={this.onChange}
               value={this.state.body}
+              required
             />
           </div>
           <br />
-          <button type="submit">Submit</button>
+          <button style={{width: '100%'}} className="button" type="submit">Submit</button>
         </form>
       </div>
     );

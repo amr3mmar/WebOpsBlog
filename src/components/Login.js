@@ -39,25 +39,25 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h1 style={{textAlign: 'center'}}>Login</h1>
         <form onSubmit={this.onSubmit}>
           <div>
-            <label>email: </label>
-            <br />
+            <label>Email:</label>
             <input
               type="email"
               name="email"
               onChange={this.onChange}
+              required
             />
           </div>
           <br />
           <div>
-            <label>Password: </label>
-            <br />
+            <label>Password:</label>
             <input
               type="password"
               name="password"
               onChange={this.onChange}
+              required
             />
           </div>
           <br></br>
@@ -65,7 +65,7 @@ class Login extends Component {
            <Link to='/register' style={{cursor: 'pointer', color:'blue'}}>Register</Link> now</span>
           <br></br>
           <br></br>
-          <button type="submit">Submit</button>
+          <button className="button" type="submit">Login</button>
         </form>
       </div>
     );

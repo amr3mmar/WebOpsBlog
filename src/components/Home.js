@@ -31,6 +31,8 @@ class Home extends Component {
 
   addComment(index){
     var body = this.state[index]
+    if(!body)
+      return
     var comment = {
       email: JSON.parse(localStorage.getItem("currentUser")).email,
       name: JSON.parse(localStorage.getItem("currentUser")).name,
@@ -51,14 +53,17 @@ class Home extends Component {
     if(this.props.posts)
       postItems = this.props.posts.map((post, index) => (
         <div key={index}>
-          <h3>{JSON.parse(post.user).name}: {post.title}</h3>
-          <p>{post.body}</p>
-          <div style={{marginLeft: "10%"}}>
+          <div style={{width: 'fit-content', backgroundColor: '#d3d3d3', padding: '10px', borderRadius: '20px'}}>
+            <h3 style={{margin: '2px'}}>{JSON.parse(post.user).name}: {post.title}</h3>
+            <p style={{margin: '2px'}}>{post.body}</p>
+          </div>
+          <br></br>
+          <div style={{marginLeft: "5%", width: 'fit-content'}}>
             <PostComments comments={post.comments}></PostComments>
           </div>
           <textarea onChange={this.onChange} name={index}></textarea>
           <br></br>
-          <button onClick={()=>this.addComment(index)}>Comment</button>
+          <button className="button" onClick={()=>this.addComment(index)}>Comment</button>
           <hr></hr>
         </div>
       ));
@@ -66,17 +71,17 @@ class Home extends Component {
     var currentUser = JSON.parse(localStorage.getItem("currentUser"))
     if(currentUser){
       logoutButton =
-      <div style = {{float: 'right'}}>
-        <a onClick = {this.logout} href="/">Logout</a>
+      <div>
+        <a className='button' style={{backgroundColor: 'red', float:"right", marginLeft:'10px', fontSize:'14px', textDecoration: 'none'}}
+         onClick = {this.logout} href="/">Logout</a>
       </div>
     }
     return (
       <div>
         {logoutButton}
-        <div style={{textAlign: "center"}}>
-          <h1>Posts</h1>
-          <button onClick = {this.gotoAddPost}>Add post</button>
-        </div>
+        <button className='button' style={{backgroundColor: 'blue', float:"right"}} onClick = {this.gotoAddPost}>Add post</button>
+        <h1 style={{textAlign: "center"}}>Posts</h1>  
+        <div style={{clear: 'both'}}></div>
         <br></br>
         {postItems}
       </div>

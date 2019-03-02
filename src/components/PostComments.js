@@ -9,13 +9,15 @@ export class PostComments extends Component {
     // }
   render() {
     var comments = this.props.comments.map((comment, index) => (
-        <div key={index}>
-            <span>{comment.name}</span>
+      <div key={index}>
+        <div style={{backgroundColor: '#d3d3d3', padding: '10px', borderRadius: '20px'}}>
+            <span style={{fontWeight: '600'}}>{comment.name}</span>
             <br></br>
             <span>{comment.body}</span>
             <br></br>
         </div>
-        
+        <br></br>
+      </div>
       ));
     return (
       <div>

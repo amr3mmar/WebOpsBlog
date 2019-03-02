@@ -39,7 +39,7 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <h1>Register</h1>
+        <h1 style={{textAlign: 'center'}}>Register</h1>
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Name: </label>
@@ -48,6 +48,7 @@ class Register extends Component {
               type="text"
               name="name"
               onChange={this.onChange}
+              required
             />
           </div>
           <br />
@@ -58,6 +59,7 @@ class Register extends Component {
               type="email"
               name="email"
               onChange={this.onChange}
+              required
             />
           </div>
           <br />
@@ -68,10 +70,11 @@ class Register extends Component {
               type="password"
               name="password"
               onChange={this.onChange}
+              required
             />
           </div>
           <br />
-          <button type="submit">Submit</button>
+          <button className="button" type="submit">Register</button>
         </form>
       </div>
     );

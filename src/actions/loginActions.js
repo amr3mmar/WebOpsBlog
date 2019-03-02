@@ -26,10 +26,20 @@ export const register = user => dispatch => {
     if(localStorage.getItem("users"))
         users = JSON.parse(localStorage.getItem("users"))
     
-    users.push(user)
-    localStorage.setItem("users", JSON.stringify(users))
-    dispatch({
-        type: REGISTER,
-        payload: user
-    })
+    var userFound = false
+    users.forEach(u => {
+        if(u.email === user.email)
+            userFound = true
+    });
+    
+    if (userFound)
+        alert('User already exists')
+    else {
+        users.push(user)
+        localStorage.setItem("users", JSON.stringify(users))
+        dispatch({
+            type: REGISTER,
+            payload: user
+        })
+    }
 };
