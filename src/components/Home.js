@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postActions';
+import { deletePost } from '../actions/postActions';
 import { PostComments } from './PostComments'
 
 class Home extends Component {
@@ -15,6 +16,7 @@ class Home extends Component {
     this.gotoAddPost = this.gotoAddPost.bind(this);
     this.logout = this.logout.bind(this);
     this.addComment = this.addComment.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   componentWillMount() {
@@ -27,6 +29,10 @@ class Home extends Component {
 
   gotoAddPost() {
     this.props.history.push('/add-post')
+  }
+
+  deletePost(index){
+    this.props.deletePost(index)
   }
 
   addComment(index){
@@ -56,6 +62,13 @@ class Home extends Component {
           <div style={{width: 'fit-content', backgroundColor: '#d3d3d3', padding: '10px', borderRadius: '20px'}}>
             <h3 style={{margin: '2px'}}>{JSON.parse(post.user).name}: {post.title}</h3>
             <p style={{margin: '2px'}}>{post.body}</p>
+            <div style={{display: 'inline-flex', float: 'right'}}>
+              <button className='button' 
+              style = {{display: (JSON.parse(localStorage.getItem("currentUser")).email === JSON.parse(post.user).email)? 'block': 'none', padding: '8px', backgroundColor: 'blue', marginRight: '5px'}}>Edit</button>
+              <button className='button' onClick={()=>this.deletePost(index)} 
+              style = {{display: (JSON.parse(localStorage.getItem("currentUser")).email === JSON.parse(post.user).email)? 'block': 'none', padding: '8px', backgroundColor: 'red'}}>Delete</button>
+            </div>
+            <div style={{clear: 'both'}}></div>
           </div>
           <br></br>
           <div style={{marginLeft: "5%", width: 'fit-content'}}>
@@ -91,6 +104,7 @@ class Home extends Component {
 
 Home.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
+  deletePost: PropTypes.func,
   posts: PropTypes.array.isRequired,
   newPost: PropTypes.object
 };
@@ -100,4 +114,4 @@ const mapStateToProps = state => ({
   newPost: state.posts.item
 });
 
-export default connect(mapStateToProps, { fetchPosts })(Home);
+export default connect(mapStateToProps, { fetchPosts, deletePost })(Home);
