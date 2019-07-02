@@ -170,7 +170,7 @@ class Home extends Component {
 Home.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
   deletePost: PropTypes.func,
-  posts: PropTypes.array.isRequired,
+  posts: PropTypes.array,
   newPost: PropTypes.object
 };
 
