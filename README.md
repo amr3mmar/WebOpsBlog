@@ -15,5 +15,5 @@ In this project you can: <br />
 3- only the author of the post can edit and delete it <br />
 4- you can comment on the post <br />
 
-This is just a frontend project (not connect to an API, the data is saved locally).
+This is just a frontend project (not connected to an API, the data is saved locally).
 You can find a tinyMCE editor when you add/edit a post.
